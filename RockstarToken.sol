@@ -24,7 +24,7 @@ contract RockstarToken
     constructor() public {
         owner = msg.sender;
         canBurn = false;
-        canApproveCall = false;
+        canApproveCall = true;
         balances[owner] = totalSupply;
     }
 
@@ -72,6 +72,7 @@ contract RockstarToken
 
     function _transfer(address _from, address _to, uint256 _value) internal returns (bool) {
         require(_to != address(0));
+        require(_to != _from);
         uint256 oldFromVal = balances[_from];
         require(_value > 0 && oldFromVal >= _value);
         uint256 oldToVal = balances[_to];
